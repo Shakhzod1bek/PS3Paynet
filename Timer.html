@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>3 Timer va Tariflar</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h1>Playstation 3 Soatlik hisob kitob</h1>
+<div class="ps">
+      <div class="timer">
+    <h3>1-Stol</h3>
+    <p>Vaqt: <span class="time">00:00:00</span></p>
+    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
+    <p>Summa: <span class="cost">0</span> so'm</p>
+
+    <div>
+      <button class="tarif-btn" onclick="setTarif(this,15000)">Tarif 1</button>
+      <button class="tarif-btn" onclick="setTarif(this,18000)">Tarif 2</button>
+      <button class="tarif-btn" onclick="setTarif(this,20000)">Tarif 3</button>
+    </div>
+
+    <button onclick="startTimer(this)">Start</button>
+    <button onclick="stopTimer(this)">Stop</button>
+  </div>
+
+  <div class="timer">
+    <h3>2-Stol</h3>
+    <p>Vaqt: <span class="time">00:00:00</span></p>
+    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
+    <p>Summa: <span class="cost">0</span> so'm</p>
+
+    <div>
+      <button class="tarif-btn" onclick="setTarif(this,15000)">Tarif 1</button>
+      <button class="tarif-btn" onclick="setTarif(this,18000)">Tarif 2</button>
+      <button class="tarif-btn" onclick="setTarif(this,20000)">Tarif 3</button>
+    </div>
+
+    <button onclick="startTimer(this)">Start</button>
+    <button onclick="stopTimer(this)">Stop</button>
+  </div>
+
+  <div class="timer">
+    <h3>3-Stol</h3>
+    <p>Vaqt: <span class="time">00:00:00</span></p>
+    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
+    <p>Summa: <span class="cost">0</span> so'm</p>
+
+    <div>
+      <button class="tarif-btn" onclick="setTarif(this,15000)">Tarif 1</button>
+      <button class="tarif-btn" onclick="setTarif(this,18000)">Tarif 2</button>
+      <button class="tarif-btn" onclick="setTarif(this,20000)">Tarif 3</button>
+    </div>
+
+    <button onclick="startTimer(this)">Start</button>
+    <button onclick="stopTimer(this)">Stop</button>
+  </div>
+</div>
+
+
+<script src="./app.js">
+</script>
+</body>
+</html>
