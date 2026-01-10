@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
   <meta charset="UTF-8">
   <title>PS3 Timer</title>
@@ -21,24 +22,25 @@
       background: orange;
       top: 20px;
       left: 20px;
-      width: 45px;
-      height: 45px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 20px;
+      font-size: 50px;
       z-index: 10000;
     }
 
-    p{
+    p {
       font-size: 24px;
     }
 
     /* === HISOBOT TAB === */
     #logTab {
-      display: none; /* Bosilganda ko‘rsatiladi */
+      display: none;
+      /* Bosilganda ko‘rsatiladi */
       position: fixed;
       width: 350px;
       inset: 0;
@@ -85,7 +87,7 @@
       margin-bottom: 10px;
       padding: 12px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
       font-size: 24px;
       line-height: 1.4;
     }
@@ -94,6 +96,7 @@
       #logTab {
         padding: 10px;
       }
+
       #logList li {
         font-size: 13px;
       }
@@ -111,7 +114,7 @@
       padding: 15px;
       width: 360px;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(13,71,161,0.15);
+      box-shadow: 0 8px 20px rgba(13, 71, 161, 0.15);
       border-top: 6px solid #1976d2;
     }
 
@@ -125,6 +128,9 @@
       font-size: 28px;
       font-weight: 700;
       color: #0d47a1;
+      transform: scaleY(2);
+      font-weight: 900;
+      display: inline-block;
     }
 
     .cost {
@@ -134,13 +140,14 @@
 
     button {
       width: 100%;
-      height: 3rem;
+      height: 4.5rem;
       margin-top: 6px;
       padding: 10px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 26px;
+      font-size: 36px;
+      font-weight: 800;
     }
 
     .tarif-btn {
@@ -153,332 +160,343 @@
       color: #fff;
     }
 
-    .start-btn { background: #19d238; color: #fff; }
-    .stop-btn  { background: #eb2121; color: #fff; }
-    .reset-btn { background: rgb(239, 8, 162); color: #fff; }
+    .start-btn {
+      background: #19d238;
+      color: #fff;
+    }
 
+    .stop-btn {
+      background: #eb2121;
+      color: #fff;
+    }
+
+    .reset-btn {
+      background: rgb(239, 8, 162);
+      color: #fff;
+    }
   </style>
 </head>
 
 <body>
 
 
-<!-- HISOBOTLAR TAB -->
-<div id="logTab">
-  <h2>📑 Hisobotlar</h2>
-  <button onclick="closeLogTab()">❌ Yopish</button>
-  <button onclick="clearLogs()" style="background:red;color:white;">🗑 Tozalash</button>
-  <ul id="logList"></ul>
-</div>
-
-<!-- PS TIMERLAR -->
-<div class="ps">
-  <!-- 1-Stol -->
-  <div class="timer" data-stol="1-Stol">
-    <h3>1-Stol</h3>
-    <p>Vaqt: <span class="time">00:00:00:000</span></p>
-    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
-    <p>Summa: <span class="cost">0</span> so'm</p>
-
-    <button class="tarif-btn" onclick="setTarif(this,15000)">2 ta pult</button>
-    <button class="tarif-btn" onclick="setTarif(this,18000)">3 ta pult</button>
-    <button class="tarif-btn" onclick="setTarif(this,20000)">4 ta pult</button>
-
-    <button class="start-btn" onclick="startTimer(this)">Start</button>
-    <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
-    <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
+  <!-- HISOBOTLAR TAB -->
+  <div id="logTab">
+    <h2>📑 Hisobotlar</h2>
+    <button onclick="closeLogTab()">❌ Yopish</button>
+    <button onclick="clearLogs()" style="background:red;color:white;">🗑 Tozalash</button>
+    <ul id="logList"></ul>
   </div>
 
-  <!-- 2-Stol -->
-  <div class="timer" data-stol="2-Stol">
-    <h3>2-Stol</h3>
-    <p>Vaqt: <span class="time">00:00:00:000</span></p>
-    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
-    <p>Summa: <span class="cost">0</span> so'm</p>
+  <!-- PS TIMERLAR -->
+  <div class="ps">
+    <!-- 1-Stol -->
+    <div class="timer" data-stol="1-Stol">
+      <h3>1-Stol</h3>
+      <p>Vaqt: <span class="time">00:00:00:000</span></p>
+      <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
+      <p>Summa: <span class="cost">0</span> so'm</p>
 
-    <button class="tarif-btn" onclick="setTarif(this,15000)">2 ta pult</button>
-    <button class="tarif-btn" onclick="setTarif(this,18000)">3 ta pult</button>
-    <button class="tarif-btn" onclick="setTarif(this,20000)">4 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,15000)">2 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,18000)">3 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,20000)">4 ta pult</button>
 
-    <button class="start-btn" onclick="startTimer(this)">Start</button>
-    <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
-    <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
+      <button class="start-btn" onclick="startTimer(this)">Start</button>
+      <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
+      <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
+    </div>
+
+    <!-- 2-Stol -->
+    <div class="timer" data-stol="2-Stol">
+      <h3>2-Stol</h3>
+      <p>Vaqt: <span class="time">00:00:00:000</span></p>
+      <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
+      <p>Summa: <span class="cost">0</span> so'm</p>
+
+      <button class="tarif-btn" onclick="setTarif(this,15000)">2 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,18000)">3 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,20000)">4 ta pult</button>
+
+      <button class="start-btn" onclick="startTimer(this)">Start</button>
+      <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
+      <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
+    </div>
+
+    <!-- 3-Stol -->
+    <div class="timer" data-stol="3-Stol">
+      <h3>3-Stol</h3>
+      <p>Vaqt: <span class="time">00:00:00:000</span></p>
+      <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
+      <p>Summa: <span class="cost">0</span> so'm</p>
+
+      <button class="tarif-btn" onclick="setTarif(this,15000)">2 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,18000)">3 ta pult</button>
+      <button class="tarif-btn" onclick="setTarif(this,20000)">4 ta pult</button>
+
+      <button class="start-btn" onclick="startTimer(this)">Start</button>
+      <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
+      <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
+    </div>
   </div>
 
-  <!-- 3-Stol -->
-  <div class="timer" data-stol="3-Stol">
-    <h3>3-Stol</h3>
-    <p>Vaqt: <span class="time">00:00:00:000</span></p>
-    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
-    <p>Summa: <span class="cost">0</span> so'm</p>
+  <!-- OPEN LOG BUTTON -->
+  <div id="pasdagi" onclick="openLogTab()">📑</div>
 
-    <button class="tarif-btn" onclick="setTarif(this,15000)">2 ta pult</button>
-    <button class="tarif-btn" onclick="setTarif(this,18000)">3 ta pult</button>
-    <button class="tarif-btn" onclick="setTarif(this,20000)">4 ta pult</button>
+  <script>
+    /*********************************
+     * GLOBAL
+     *********************************/
+    const timers = new Map();
+    const STORAGE_KEY = "ps3_real_timers";
+    const LOG_KEY = "ps3_logs";
 
-    <button class="start-btn" onclick="startTimer(this)">Start</button>
-    <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
-    <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
-  </div>
-</div>
+    /*********************************
+     * STORAGE
+     *********************************/
+    function loadData() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch { return {}; }
+    }
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
 
-<!-- OPEN LOG BUTTON -->
-<div id="pasdagi" onclick="openLogTab()">📑</div>
+    /*********************************
+     * LOG STORAGE
+     *********************************/
+    function loadLogs() {
+      try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; }
+      catch { return []; }
+    }
+    function saveLogs(logs) {
+      localStorage.setItem(LOG_KEY, JSON.stringify(logs));
+    }
 
-<script>
-/*********************************
- * GLOBAL
- *********************************/
-const timers = new Map();
-const STORAGE_KEY = "ps3_real_timers";
-const LOG_KEY = "ps3_logs";
+    /*********************************
+     * TARIF (NARX BILAN)
+     *********************************/
+    function setTarif(btn, rate) {
+      const box = btn.closest(".timer");
 
-/*********************************
- * STORAGE
- *********************************/
-function loadData(){
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-  catch { return {}; }
-}
-function saveData(data){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
+      box.rate = rate;
+      box.tarifName = btn.innerText;
 
-/*********************************
- * LOG STORAGE
- *********************************/
-function loadLogs(){
-  try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; }
-  catch { return []; }
-}
-function saveLogs(logs){
-  localStorage.setItem(LOG_KEY, JSON.stringify(logs));
-}
+      // 🔥 NARX FORMATLAB CHIQARISH
+      const priceText = rate.toLocaleString() + " so'm";
 
-/*********************************
- * TARIF (NARX BILAN)
- *********************************/
-function setTarif(btn, rate){
-  const box = btn.closest(".timer");
+      box.querySelector(".current-tarif").innerText =
+        `${btn.innerText} – ${priceText}`;
 
-  box.rate = rate;
-  box.tarifName = btn.innerText;
+      box.querySelectorAll(".tarif-btn")
+        .forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
 
-  // 🔥 NARX FORMATLAB CHIQARISH
-  const priceText = rate.toLocaleString() + " so'm";
+    /*********************************
+     * START
+     *********************************/
+    function startTimer(btn) {
+      const box = btn.closest(".timer");
+      if (!box.rate) {
+        alert("Avval tarif tanlang!");
+        return;
+      }
+      if (timers.has(box)) return;
 
-  box.querySelector(".current-tarif").innerText =
-    `${btn.innerText} – ${priceText}`;
+      const stol = box.dataset.stol;
+      const data = loadData();
 
-  box.querySelectorAll(".tarif-btn")
-    .forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-}
+      const startTime = data[stol]?.startTime ?? Date.now();
 
-/*********************************
- * START
- *********************************/
-function startTimer(btn){
-  const box = btn.closest(".timer");
-  if(!box.rate){
-    alert("Avval tarif tanlang!");
-    return;
-  }
-  if(timers.has(box)) return;
+      data[stol] = {
+        startTime,
+        rate: box.rate,
+        tarif: box.tarifName
+      };
+      saveData(data);
 
-  const stol = box.dataset.stol;
-  const data = loadData();
+      box.startTime = startTime;
+      showStartedAt(box, startTime);
 
-  const startTime = data[stol]?.startTime ?? Date.now();
+      const interval = setInterval(() => drawUI(box), 50);
+      timers.set(box, interval);
+    }
 
-  data[stol] = {
-    startTime,
-    rate: box.rate,
-    tarif: box.tarifName
-  };
-  saveData(data);
+    /*********************************
+     * STOP
+     *********************************/
+    function stopTimer(btn) {
+      const box = btn.closest(".timer");
+      if (!timers.has(box)) return;
 
-  box.startTime = startTime;
-  showStartedAt(box, startTime);
+      clearInterval(timers.get(box));
+      timers.delete(box);
 
-  const interval = setInterval(()=> drawUI(box), 50);
-  timers.set(box, interval);
-}
+      const elapsed = Date.now() - box.startTime;
+      const cost = Math.round(elapsed / 3600000 * box.rate);
 
-/*********************************
- * STOP
- *********************************/
-function stopTimer(btn){
-  const box = btn.closest(".timer");
-  if(!timers.has(box)) return;
+      addLog({
+        stol: box.dataset.stol,
+        tarif: `${box.tarifName} – ${box.rate.toLocaleString()} so'm`,
+        rate: box.rate,
+        timeMs: elapsed,
+        cost
+      });
+    }
 
-  clearInterval(timers.get(box));
-  timers.delete(box);
+    /*********************************
+     * RESET
+     *********************************/
+    function resetTimer(btn) {
+      const box = btn.closest(".timer");
 
-  const elapsed = Date.now() - box.startTime;
-  const cost = Math.round(elapsed / 3600000 * box.rate);
+      if (timers.has(box)) {
+        clearInterval(timers.get(box));
+        timers.delete(box);
+      }
 
-  addLog({
-    stol: box.dataset.stol,
-    tarif: `${box.tarifName} – ${box.rate.toLocaleString()} so'm`,
-    rate: box.rate,
-    timeMs: elapsed,
-    cost
-  });
-}
+      const data = loadData();
+      delete data[box.dataset.stol];
+      saveData(data);
 
-/*********************************
- * RESET
- *********************************/
-function resetTimer(btn){
-  const box = btn.closest(".timer");
+      box.querySelector(".time").innerText = "00:00:00:000";
+      box.querySelector(".cost").innerText = "0";
+      box.querySelector(".current-tarif").innerText = "Tanlanmagan";
+      box.querySelectorAll(".tarif-btn").forEach(b => b.classList.remove("active"));
 
-  if(timers.has(box)){
-    clearInterval(timers.get(box));
-    timers.delete(box);
-  }
+      const p = box.querySelector(".started-at");
+      if (p) { p.style.display = "none"; p.innerText = ""; }
+    }
 
-  const data = loadData();
-  delete data[box.dataset.stol];
-  saveData(data);
+    /*********************************
+     * UI DRAW
+     *********************************/
+    function drawUI(box) {
+      const elapsed = Date.now() - box.startTime;
 
-  box.querySelector(".time").innerText = "00:00:00:000";
-  box.querySelector(".cost").innerText = "0";
-  box.querySelector(".current-tarif").innerText = "Tanlanmagan";
-  box.querySelectorAll(".tarif-btn").forEach(b=>b.classList.remove("active"));
+      const h = Math.floor(elapsed / 3600000);
+      const m = Math.floor((elapsed % 3600000) / 60000);
+      const s = Math.floor((elapsed % 60000) / 1000);
+      const ms = elapsed % 1000;
 
-  const p = box.querySelector(".started-at");
-  if(p){ p.style.display="none"; p.innerText=""; }
-}
+      box.querySelector(".time").innerText =
+        `${String(h).padStart(2, "0")}:` +
+        `${String(m).padStart(2, "0")}:` +
+        `${String(s).padStart(2, "0")}:` +
+        `${String(ms).padStart(3, "0")}`;
 
-/*********************************
- * UI DRAW
- *********************************/
-function drawUI(box){
-  const elapsed = Date.now() - box.startTime;
+      const cost = Math.round(elapsed / 3600000 * box.rate);
+      box.querySelector(".cost").innerText = cost.toLocaleString();
+    }
 
-  const h  = Math.floor(elapsed / 3600000);
-  const m  = Math.floor((elapsed % 3600000) / 60000);
-  const s  = Math.floor((elapsed % 60000) / 1000);
-  const ms = elapsed % 1000;
+    /*********************************
+     * STARTED AT
+     *********************************/
+    function showStartedAt(box, time) {
+      let p = box.querySelector(".started-at");
+      if (!p) {
+        p = document.createElement("p");
+        p.className = "started-at";
+        p.style.color = "green";
+        box.insertBefore(p, box.children[1]);
+      }
 
-  box.querySelector(".time").innerText =
-    `${String(h).padStart(2,"0")}:`+
-    `${String(m).padStart(2,"0")}:`+
-    `${String(s).padStart(2,"0")}:`+
-    `${String(ms).padStart(3,"0")}`;
+      const d = new Date(time);
+      p.style.display = "block";
+      p.innerText =
+        `Boshlangan: ${String(d.getHours()).padStart(2, "0")}:` +
+        `${String(d.getMinutes()).padStart(2, "0")}:` +
+        `${String(d.getSeconds()).padStart(2, "0")}`;
+    }
 
-  const cost = Math.round(elapsed / 3600000 * box.rate);
-  box.querySelector(".cost").innerText = cost.toLocaleString();
-}
+    /*********************************
+     * LOG FUNCTIONS
+     *********************************/
+    function addLog({ stol, tarif, rate, timeMs, cost }) {
+      const logs = loadLogs();
+      logs.unshift({
+        stol,
+        tarif,
+        rate,
+        timeMs,
+        cost,
+        date: new Date().toLocaleString()
+      });
+      saveLogs(logs);
+      renderLogs();
+    }
 
-/*********************************
- * STARTED AT
- *********************************/
-function showStartedAt(box, time){
-  let p = box.querySelector(".started-at");
-  if(!p){
-    p = document.createElement("p");
-    p.className = "started-at";
-    p.style.color = "green";
-    box.insertBefore(p, box.children[1]);
-  }
+    function msToTime(ms) {
+      const h = Math.floor(ms / 3600000);
+      const m = Math.floor((ms % 3600000) / 60000);
+      const s = Math.floor((ms % 60000) / 1000);
+      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
 
-  const d = new Date(time);
-  p.style.display = "block";
-  p.innerText =
-    `Boshlangan: ${String(d.getHours()).padStart(2,"0")}:`+
-    `${String(d.getMinutes()).padStart(2,"0")}:`+
-    `${String(d.getSeconds()).padStart(2,"0")}`;
-}
+    function renderLogs() {
+      const list = document.getElementById("logList");
+      list.innerHTML = "";
 
-/*********************************
- * LOG FUNCTIONS
- *********************************/
-function addLog({ stol, tarif, rate, timeMs, cost }){
-  const logs = loadLogs();
-  logs.unshift({
-    stol,
-    tarif,
-    rate,
-    timeMs,
-    cost,
-    date: new Date().toLocaleString()
-  });
-  saveLogs(logs);
-  renderLogs();
-}
+      const logs = loadLogs();
+      if (logs.length === 0) {
+        list.innerHTML = "<li>Hozircha hisobot yo‘q</li>";
+        return;
+      }
 
-function msToTime(ms){
-  const h = Math.floor(ms / 3600000);
-  const m = Math.floor((ms % 3600000) / 60000);
-  const s = Math.floor((ms % 60000) / 1000);
-  return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-}
-
-function renderLogs(){
-  const list = document.getElementById("logList");
-  list.innerHTML = "";
-
-  const logs = loadLogs();
-  if(logs.length === 0){
-    list.innerHTML = "<li>Hozircha hisobot yo‘q</li>";
-    return;
-  }
-
-  logs.forEach(l=>{
-    const li = document.createElement("li");
-    li.innerHTML = `
+      logs.forEach(l => {
+        const li = document.createElement("li");
+        li.innerHTML = `
       <b>${l.stol}</b><br>
       Tarif: ${l.tarif}<br>
       Vaqt: ${msToTime(l.timeMs)}<br>
       Summa: <b>${l.cost.toLocaleString()} so‘m</b><br>
       <small>${l.date}</small>
     `;
-    list.appendChild(li);
-  });
-}
+        list.appendChild(li);
+      });
+    }
 
-/*********************************
- * LOG TAB
- *********************************/
-function openLogTab(){
-  document.getElementById("logTab").style.display = "block";
-  renderLogs();
-}
-function closeLogTab(){
-  document.getElementById("logTab").style.display = "none";
-}
-function clearLogs(){
-  if(!confirm("Barcha hisobotlar o‘chirilsinmi?")) return;
-  localStorage.removeItem(LOG_KEY);
-  renderLogs();
-}
+    /*********************************
+     * LOG TAB
+     *********************************/
+    function openLogTab() {
+      document.getElementById("logTab").style.display = "block";
+      renderLogs();
+    }
+    function closeLogTab() {
+      document.getElementById("logTab").style.display = "none";
+    }
+    function clearLogs() {
+      if (!confirm("Barcha hisobotlar o‘chirilsinmi?")) return;
+      localStorage.removeItem(LOG_KEY);
+      renderLogs();
+    }
 
-/*********************************
- * AUTO RESTORE
- *********************************/
-window.addEventListener("load", ()=>{
-  const data = loadData();
+    /*********************************
+     * AUTO RESTORE
+     *********************************/
+    window.addEventListener("load", () => {
+      const data = loadData();
 
-  document.querySelectorAll(".timer").forEach(box=>{
-    const saved = data[box.dataset.stol];
-    if(!saved) return;
+      document.querySelectorAll(".timer").forEach(box => {
+        const saved = data[box.dataset.stol];
+        if (!saved) return;
 
-    box.rate = saved.rate;
-    box.tarifName = saved.tarif;
-    box.startTime = saved.startTime;
+        box.rate = saved.rate;
+        box.tarifName = saved.tarif;
+        box.startTime = saved.startTime;
 
-    box.querySelector(".current-tarif").innerText =
-      `${saved.tarif} – ${saved.rate.toLocaleString()} so'm`;
+        box.querySelector(".current-tarif").innerText =
+          `${saved.tarif} – ${saved.rate.toLocaleString()} so'm`;
 
-    showStartedAt(box, box.startTime);
+        showStartedAt(box, box.startTime);
 
-    const interval = setInterval(()=> drawUI(box), 50);
-    timers.set(box, interval);
-  });
-});
-</script>
+        const interval = setInterval(() => drawUI(box), 50);
+        timers.set(box, interval);
+      });
+    });
+  </script>
 
 </body>
+
 </html>
