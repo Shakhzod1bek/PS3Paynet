@@ -1,286 +1,350 @@
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
-  <meta charset="UTF-8">
-  <title>PS3 Timer</title>
+<meta charset="UTF-8">
+<title>PS Timer PRO FINAL</title>
 
-  <style>
-    /* === STYLE O‘ZGARMAGAN === */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0 auto;
-      padding-top: 15px;
-      width: 750px;
-      max-width: 100%;
-      display: flex;
-      text-align: center;
-      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+}
 
-    #pasdagi {
-      position: fixed;
-      background: orange;
-      top: 20px;
-      left: 20px;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 50px;
-      z-index: 10000;
-    }
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+}
 
-    p {
-      font-size: 45px;
-      margin: 45px 0;
-      font-weight: 700;
-      transform: scaleY(1.7);
-    }
+.timer h3 {
+  text-align: right;
+  font-size: 25px;
+  margin: 0px 0px 15px 0px;
+  font-weight: bold;
+}
 
-    h3 {
-      font-weight: 800;
-      font-size: 45px;
-      margin: 10px 0 0 0;
-      transform: scaleY(1.6);
-      display: inline-block;
-    }
+.admin-btn{
+  background:#ff9800;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-    #logTab {
-      display: none;
-      position: fixed;
-      width: 350px;
-      inset: 0;
-      background: #f5f7fb;
-      padding: 16px;
-      overflow-y: auto;
-      z-index: 9999;
-    }
+.ps{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  padding:20px;
+}
 
-    #logList li {
-      background: #fff;
-      margin-bottom: 10px;
-      padding: 12px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, .08);
-      font-size: 24px;
-    }
+.timer{
+  background:#fff;
+  color:#000;
+  width:260px;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+}
 
-    .ps {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+.time{font-size:26px;}
+.cost{color:green;font-weight:bold;}
 
-    .timer {
-      background: #fff;
-      padding: 15px;
-      width: 550px;
-      height: 920px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(13, 71, 161, 0.15);
-      border-top: 6px solid #1976d2;
-    }
+button{
+  width:100%;
+  height:45px;
+  margin-top:6px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-    .time {
-      font-size: 28px;
-      font-weight: 900;
-      transform: scaleY(2);
-      display: inline-block;
-    }
+.start{background:#28a745;color:#fff;}
+.pause{background:#ffc107;}
+.stop{background:#dc3545;color:#fff;}
+.reset{background:#6c757d;color:#fff;}
 
-    button {
-      width: 100%;
-      height: 6rem;
-      margin-top: 6px;
-      border-radius: 8px;
-      font-size: 36px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-    }
+#admin{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#111;
+  padding:20px;
+  overflow:auto;
+}
 
-    .tarif-btn {
-      background: #e3f2fd;
-    }
+.log{
+  background:#fff;
+  color:#000;
+  padding:10px;
+  margin:10px 0;
+  border-radius:10px;
+}
 
-    .tarif-btn.active {
-      background: #1976d2;
-      color: #fff;
-    }
+.delete{
+  background:red;
+  color:#fff;
+}
 
-    .start-btn {
-      background: #19d238;
-      color: #fff;
-    }
-
-    .stop-btn {
-      background: #eb2121;
-      color: #fff;
-    }
-
-    .reset-btn {
-      background: rgb(239, 8, 162);
-      color: #fff;
-    }
-  </style>
+.total{
+  background:#28a745;
+  padding:10px;
+  border-radius:10px;
+}
+</style>
 </head>
 
 <body>
 
-  <div id="logTab">
-    <h2>📑 Hisobotlar</h2>
-    <button onclick="closeLogTab()">❌ Yopish</button>
-    <button onclick="clearLogs()" style="background:red;color:white;">🗑 Tozalash</button>
-    <ul id="logList"></ul>
-  </div>
+<div class="topbar">
+  <h2>🎮 PS Timer</h2>
+  <button class="admin-btn" onclick="openAdmin()">📊 Admin</button>
+</div>
 
-  <div class="ps" id="psArea"></div>
+<div class="ps" id="psArea"></div>
 
-  <div id="pasdagi" onclick="openLogTab()">📑</div>
+<div id="admin">
+  <h2>📊 Statistika</h2>
+  <button onclick="closeAdmin()">❌ Yopish</button>
+  <div id="total" class="total"></div>
+  <div id="logs"></div>
+</div>
 
-  <script>
-    /************ STOLLARNI YARATISH (8 TA) ************/
-    const psArea = document.getElementById("psArea");
-    for (let i = 1; i <= 8; i++) {
-      psArea.innerHTML += `
-  <div class="timer" data-stol="${i}-Stol">
-    <h3>${i}-Stol</h3>
-    <p>Vaqt: <span class="time">00:00:00:000</span></p>
-    <p>Tarif: <span class="current-tarif">Tanlanmagan</span></p>
-    <p>Summa: <span class="cost">0</span> so'm</p>
+<audio id="beep">
+<source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+</audio>
 
-    <button class="tarif-btn" onclick="setTarif(this,20000,'2 ta pult')">
-      2-pult 
-    </button>
+<script>
 
-    <button class="tarif-btn" onclick="setTarif(this,24000,'3–4 ta pult')">
-      3/4-pult
-    </button>
+const RATE = 15000;
+const LOGS = "ps_logs";
+const STATE = "ps_state";
 
-    <button class="start-btn" onclick="startTimer(this)">Start</button>
-    <button class="stop-btn" onclick="stopTimer(this)">Stop</button>
-    <button class="reset-btn" onclick="resetTimer(this)">Reset</button>
-  </div>`;
-    }
+const psArea = document.getElementById("psArea");
+const timers = new Map();
 
-    /************ TIMER LOGIC ************/
-    const timers = new Map();
-    const LOG_KEY = "ps_logs";
+/******** CREATE ********/
+for(let i=1;i<=4;i++){
+psArea.innerHTML+=`
+<div class="timer" data-id="${i}">
+<h3>${i}-Stol</h3>
+<div class="time">00:00:00:000</div>
+<div class="cost">0 so'm</div>
 
-    function setTarif(btn, rate, name) {
-      const box = btn.closest(".timer");
-      box.rate = rate;
-      box.tarifName = name;
-      box.querySelector(".current-tarif").innerText =
-        `${name} – ${rate.toLocaleString()} so'm`;
+<button class="start" onclick="start(this)">Start</button>
+<button class="pause" onclick="pause(this)">Pause</button>
+<button class="stop" onclick="stop(this)">Stop</button>
+<button class="reset" onclick="resetTimer(this)">Reset</button>
+</div>`;
+}
 
-      box.querySelectorAll(".tarif-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    }
+/******** FORMAT ********/
+function money(n){
+return n.toLocaleString('ru-RU')+" so'm";
+}
 
-    function startTimer(btn) {
-      const box = btn.closest(".timer");
-      if (!box.rate) return alert("Avval tarif tanlang!");
-      if (timers.has(box)) return;
+/******** TIMER ********/
+function start(btn){
+const box=btn.closest(".timer");
 
-      box.startTime = Date.now();
-      timers.set(box, setInterval(() => drawUI(box), 50));
-    }
+if(timers.has(box)) return;
 
-    function stopTimer(btn) {
-      const box = btn.closest(".timer");
-      if (!timers.has(box)) return;
+if(!box.startTimestamp){
+box.startTimestamp=Date.now();
+box.pausedTime=0;
+}else if(box.pauseStart){
+box.pausedTime+=Date.now()-box.pauseStart;
+box.pauseStart=null;
+}
 
-      clearInterval(timers.get(box));
-      timers.delete(box);
+timers.set(box,setInterval(()=>{
+update(box);
+saveState();
+},50));
+}
 
-      const elapsed = Date.now() - box.startTime;
-      const cost = Math.round(elapsed / 3600000 * box.rate);
+function pause(btn){
+const box=btn.closest(".timer");
 
-      saveLog({
-        stol: box.dataset.stol,
-        tarif: box.tarifName,
-        vaqt: msToTime(elapsed),
-        summa: cost
-      });
-    }
+if(!timers.has(box)) return;
 
-    function resetTimer(btn) {
-      const box = btn.closest(".timer");
-      if (timers.has(box)) {
-        clearInterval(timers.get(box));
-        timers.delete(box);
-      }
-      box.querySelector(".time").innerText = "00:00:00:000";
-      box.querySelector(".cost").innerText = "0";
-      box.querySelector(".current-tarif").innerText = "Tanlanmagan";
-      box.querySelectorAll(".tarif-btn").forEach(b => b.classList.remove("active"));
-    }
+clearInterval(timers.get(box));
+timers.delete(box);
 
-    function drawUI(box) {
-      const ms = Date.now() - box.startTime;
-      const h = Math.floor(ms / 3600000);
-      const m = Math.floor(ms / 60000) % 60;
-      const s = Math.floor(ms / 1000) % 60;
-      const mi = ms % 1000;
+box.pauseStart=Date.now();
+saveState();
+}
 
-      box.querySelector(".time").innerText =
-        `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}:${String(mi).padStart(3, "0")}`;
+function getElapsed(box){
+if(!box.startTimestamp) return 0;
 
-      box.querySelector(".cost").innerText =
-        Math.round(ms / 3600000 * box.rate).toLocaleString();
-    }
+let now=Date.now();
 
-    /************ LOG ************/
-    function saveLog(log) {
-      const logs = JSON.parse(localStorage.getItem(LOG_KEY) || "[]");
-      logs.unshift({ ...log, sana: new Date().toLocaleString() });
-      localStorage.setItem(LOG_KEY, JSON.stringify(logs));
-      renderLogs();
-    }
+if(box.pauseStart){
+now=box.pauseStart;
+}
 
-    function renderLogs() {
-      const list = document.getElementById("logList");
-      const logs = JSON.parse(localStorage.getItem(LOG_KEY) || "[]");
-      list.innerHTML = logs.length
-        ? logs.map(l => `
-      <li>
-        <b>${l.stol}</b><br>
-        Tarif: ${l.tarif}<br>
-        Vaqt: ${l.vaqt}<br>
-        Summa: <b>${l.summa.toLocaleString()} so'm</b><br>
-        <small>${l.sana}</small>
-      </li>`).join("")
-        : "<li>Hozircha hisobot yo‘q</li>";
-    }
+return now-box.startTimestamp-(box.pausedTime||0);
+}
 
-    function msToTime(ms) {
-      const h = Math.floor(ms / 3600000);
-      const m = Math.floor(ms / 60000) % 60;
-      const s = Math.floor(ms / 1000) % 60;
-      return `${h}:${m}:${s}`;
-    }
+function stop(btn){
+const box=btn.closest(".timer");
 
-    function openLogTab() {
-      document.getElementById("logTab").style.display = "block";
-      renderLogs();
-    }
-    function closeLogTab() {
-      document.getElementById("logTab").style.display = "none";
-    }
-    function clearLogs() {
-      if (confirm("Hammasi o‘chirilsinmi?")) {
-        localStorage.removeItem(LOG_KEY);
-        renderLogs();
-      }
-    }
-  </script>
+if(timers.has(box)){
+clearInterval(timers.get(box));
+timers.delete(box);
+}
+
+const ms=getElapsed(box);
+const cost=Math.floor(ms/3600000*RATE);
+
+saveLog(box.dataset.id,ms,cost);
+
+document.getElementById("beep").play();
+
+box.finalTime=ms;
+
+saveState();
+}
+
+/******** RESET ********/
+function resetTimer(btn){
+const box=btn.closest(".timer");
+
+if(timers.has(box)){
+clearInterval(timers.get(box));
+timers.delete(box);
+}
+
+box.startTimestamp=null;
+box.pausedTime=0;
+box.pauseStart=null;
+box.finalTime=0;
+
+updateUI(box,0,0);
+saveState();
+}
+
+/******** UPDATE ********/
+function update(box){
+const ms=getElapsed(box);
+const cost=Math.floor(ms/3600000*RATE);
+updateUI(box,ms,cost);
+}
+
+function updateUI(box,ms,cost){
+const h=Math.floor(ms/3600000);
+const m=Math.floor(ms/60000)%60;
+const s=Math.floor(ms/1000)%60;
+const mi=ms%1000;
+
+box.querySelector(".time").innerText=
+`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}:${String(mi).padStart(3,"0")}`;
+
+box.querySelector(".cost").innerText=money(cost);
+}
+
+/******** STORAGE ********/
+function saveState(){
+const data=[];
+document.querySelectorAll(".timer").forEach(box=>{
+data.push({
+id:box.dataset.id,
+start:box.startTimestamp,
+paused:box.pausedTime,
+pauseStart:box.pauseStart,
+final:box.finalTime
+});
+});
+localStorage.setItem(STATE,JSON.stringify(data));
+}
+
+function loadState(){
+const data=JSON.parse(localStorage.getItem(STATE)||"[]");
+
+data.forEach(d=>{
+const box=document.querySelector(`[data-id="${d.id}"]`);
+if(!box) return;
+
+box.startTimestamp=d.start;
+box.pausedTime=d.paused||0;
+box.pauseStart=d.pauseStart;
+box.finalTime=d.final;
+
+if(d.start && !d.pauseStart){
+start({closest:()=>box});
+}
+
+update(box);
+});
+}
+
+/******** LOG ********/
+function saveLog(id,ms,cost){
+const logs=JSON.parse(localStorage.getItem(LOGS)||"[]");
+
+logs.unshift({
+stol:id,
+vaqt:formatTime(ms),
+summa:cost,
+sana:new Date().toLocaleString()
+});
+
+localStorage.setItem(LOGS,JSON.stringify(logs));
+}
+
+function formatTime(ms){
+const h=Math.floor(ms/120000);
+const m=Math.floor(ms/60000)%60;
+const s=Math.floor(ms/1000)%60;
+return `${h}:${m}:${s}`;
+}
+
+/******** ADMIN ********/
+function openAdmin(){
+document.getElementById("admin").style.display="block";
+renderLogs();
+}
+
+function closeAdmin(){
+document.getElementById("admin").style.display="none";
+}
+
+function renderLogs(){
+const logs=JSON.parse(localStorage.getItem(LOGS)||"[]");
+const box=document.getElementById("logs");
+
+let total=0;
+
+box.innerHTML=logs.map((l,i)=>{
+total+=l.summa;
+return `
+<div class="log">
+<b>Stol ${l.stol}</b><br>
+⏱ ${l.vaqt}<br>
+💰 ${money(l.summa)}<br>
+<small>${l.sana}</small>
+<button class="delete" onclick="deleteLog(${i})">O‘chirish</button>
+</div>`;
+}).join("");
+
+document.getElementById("total").innerText="Jami: "+money(total);
+}
+
+function deleteLog(i){
+const logs=JSON.parse(localStorage.getItem(LOGS)||"[]");
+logs.splice(i,1);
+localStorage.setItem(LOGS,JSON.stringify(logs));
+renderLogs();
+}
+
+/******** INIT ********/
+loadState();
+
+</script>
 
 </body>
-
 </html>
